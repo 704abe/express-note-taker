@@ -42,12 +42,18 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-const deleteNote = (id) =>
-  fetch(`/api/notes/${id}`, {
+const deleteNote = (id) => 
+  console.log(id);
+
+  fetch(`/api/notes.html/${id}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
+      'Accept': 'application/vnd.api+json',
+      'Content-Type': 'application/vnd.api+json',
+
     },
+    params: {id},
   });
 
 const renderActiveNote = () => {
@@ -84,7 +90,10 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
+  console.log(note);
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  console.log(noteId);
+  console.log(activeNote);
 
   if (activeNote.id === noteId) {
     activeNote = {};
