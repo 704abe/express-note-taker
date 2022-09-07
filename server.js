@@ -12,6 +12,16 @@ app.get("/api/notes.html", (req, res) => {
     res.sendFile(path.join(__dirname, "/db/db.json"));
 });
 
+app.get("/api/notes.html/:id", (req, res) => {
+    let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    console.log(noteList);
+    let noteId = (Number(req.params.id) - 1).toString();
+    console.log(noteId);
+    let saidNote = noteList[noteId];
+    console.log(saidNote);
+    res.json(saidNote);
+});
+
 app.post("/api/notes.html", (req, res) => {
     let newNote = req.body;
     let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));

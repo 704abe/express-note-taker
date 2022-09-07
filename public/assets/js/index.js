@@ -42,7 +42,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-const deleteNote = (id) => 
+const deleteNote = (id) => {
   console.log(id);
 
   fetch(`/api/notes.html/${id}`, {
@@ -55,6 +55,7 @@ const deleteNote = (id) =>
     },
     params: {id},
   });
+}
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -95,14 +96,13 @@ const handleNoteDelete = (e) => {
   console.log(noteId);
   console.log(activeNote);
 
-  if (activeNote.id === noteId) {
-    activeNote = {};
-  }
+  // if (activeNote.id === noteId) {
+  //   activeNote = {};
+  // }
 
-  deleteNote(noteId).then(() => {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
+  deleteNote(noteId);
+  getAndRenderNotes();
+  renderActiveNote();
 };
 
 // Sets the activeNote and displays it
@@ -119,6 +119,7 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
+  console.log('hello');
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
   } else {
