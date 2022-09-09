@@ -41,15 +41,13 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-app.delete("/api/notes/:id", (req, res) => {
+app.delete("/api/notes.html/:id", (req, res) => {
     let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     let noteId = (req.params.id).toString();
-    console.log(req.params.id);
-    //filter all notes that does not have matching id and saved them as a new array
-    //the matching array will be deleted
-    noteList = noteList.filter(selected =>{
-        return selected.id != noteId;
-    })
+    console.log(noteId);
+
+    noteList = noteList.filter(selected => selected.id != noteId)
+    // console.log(noteList);
 
     //write the updated data to db.json and display the updated note
     fs.writeFileSync("./db/db.json", JSON.stringify(noteList));

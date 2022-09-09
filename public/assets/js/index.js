@@ -53,7 +53,7 @@ const deleteNote = (id) => {
       'Content-Type': 'application/vnd.api+json',
 
     },
-    params: {id},
+    // params: {id},
   });
 }
 
@@ -90,11 +90,11 @@ const handleNoteDelete = (e) => {
   // Prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();
 
-  const note = e.target;
+  const note = e.target.parentElement;
   console.log(note);
-  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  note.remove();
+  const noteId = Object.values(JSON.parse((note.getAttribute('data-note'))))[2];
   console.log(noteId);
-  console.log(activeNote);
 
   // if (activeNote.id === noteId) {
   //   activeNote = {};
