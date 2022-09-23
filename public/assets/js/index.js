@@ -43,17 +43,12 @@ const saveNote = (note) =>
   });
 
 const deleteNote = (id) => {
-  console.log(id);
-
+  // console.log(id);
   fetch(`/api/notes.html/${id}`, {
     method: 'DELETE',
     headers: {
-      // 'Content-Type': 'application/json',
-      'Accept': 'application/vnd.api+json',
-      'Content-Type': 'application/vnd.api+json',
-
-    },
-    // params: {id},
+      'Content-Type': 'application/json',
+    }
   });
 }
 
@@ -129,6 +124,7 @@ const handleRenderSaveBtn = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
+  console.log(notes);
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes.html') {
     noteList.forEach((el) => (el.innerHTML = ''));
@@ -182,7 +178,7 @@ const renderNoteList = async (notes) => {
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(renderNoteList);
+const getAndRenderNotes = () => getNotes().then((response) => renderNoteList(response));
 
 if (window.location.pathname === '/notes.html') {
   saveNoteBtn.addEventListener('click', handleNoteSave);

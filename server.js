@@ -25,10 +25,10 @@ app.get("/api/notes.html/:id", (req, res) => {
 app.post("/api/notes.html", (req, res) => {
     let newNote = req.body;
     let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let noteLength = (noteList.length).toString();
-
-    //create new property called id based on length and assign it to each json object
-    newNote.id = noteLength;
+    let noteLength = noteList.length + 1;
+    // console.log(typeof noteLength, 'noteLength', noteLength);
+    //create new property called id based on length and assigns it to each json object
+    newNote.id = noteLength.toString();
     //push updated note to the data containing notes history in db.json
     noteList.push(newNote);
 
@@ -43,11 +43,8 @@ app.get("*", (req, res) => {
 
 app.delete("/api/notes.html/:id", (req, res) => {
     let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let noteId = (req.params.id).toString();
-    console.log(noteId);
-
+    let noteId = (req.params.id);
     noteList = noteList.filter(selected => selected.id != noteId)
-    // console.log(noteList);
 
     //write the updated data to db.json and display the updated note
     fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
