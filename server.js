@@ -16,14 +16,14 @@ app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
+// route that returns database as json
+app.get("/api/notes", (req, res) => 
+    res.json(noteList)
+);
+
 // wildcard route that returns index.html page
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
-});
-
-// route that returns database as json
-app.get("/api/notes", (req, res) => {
-    res.json(noteList);
 });
 
 // route for posting a new note
