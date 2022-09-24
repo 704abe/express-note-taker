@@ -5,7 +5,7 @@ import * as url from 'url';
 let __filename = url.fileURLToPath(import.meta.url);
 let __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 let app = express();
-let PORT = process.env.PORT || 3002;
+let PORT = process.env.PORT || 3001;
 let noteList = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
 
 app.use(express.static('public'));
@@ -32,8 +32,12 @@ app.post("/api/notes", (req, res) => {
     let newNote = req.body;
 
     //gives new note a unique id by adding +1 to the highest number in the array
-    let idArray = noteList.map(note => Number(note.id));
-    newNote.id = (Math.max(...idArray) + 1).toString();
+    if(!noteList.length) {
+        newNote.id = "1";
+    } else {    
+        let idArray = noteList.map(note => Number(note.id));
+        newNote.id = (Math.max(...idArray) + 1).toString();
+    }
 
     //pushes new note to the array of saved notes
     noteList.push(newNote);
@@ -44,7 +48,7 @@ app.post("/api/notes", (req, res) => {
 })
 
 // route for deleting a note
-app.delete("/api/notes.html/:id", (req, res) => {
+app.delete("/api/notes/:id", (req, res) => {
     let noteId = (req.params.id);
     noteList = noteList.filter(selected => selected.id != noteId)
 
