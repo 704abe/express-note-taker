@@ -25,6 +25,7 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+// sends request to get database as json
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -33,6 +34,7 @@ const getNotes = () =>
     },
   });
 
+// sends post request with new note 
 const saveNote = (note) => 
   fetch('/api/notes', {
     method: 'POST',
@@ -42,6 +44,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+// sends delete request for note with specfified id
 const deleteNote = (id) => 
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,6 +53,7 @@ const deleteNote = (id) =>
     }
   });
 
+// renders active note
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
@@ -66,6 +70,7 @@ const renderActiveNote = () => {
   }
 };
 
+// creates new note using active note values and sends to save function, then sends to render functions
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -108,6 +113,7 @@ const handleNewNoteView = (e) => {
   renderActiveNote();
 };
 
+// renders save button based on active note input
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
@@ -180,4 +186,5 @@ if (window.location.pathname === '/notes') {
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
+// calls getAndRenderNotes function to kick everything off
 getAndRenderNotes();

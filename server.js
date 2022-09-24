@@ -2,7 +2,6 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import * as url from 'url';
-let __filename = url.fileURLToPath(import.meta.url);
 let __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 let app = express();
 let PORT = process.env.PORT || 3001;
@@ -17,10 +16,10 @@ app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
-// // wildcard route that returns index.html page
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "public/index.html"));
-// });
+// wildcard route that returns index.html page
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+});
 
 // route that returns database as json
 app.get("/api/notes", (req, res) => {
