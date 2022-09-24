@@ -4,7 +4,7 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
-if (window.location.pathname === '/notes.html') {
+if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
@@ -26,7 +26,7 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
-  fetch('/api/notes.html', {
+  fetch('/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const getNotes = () =>
   });
 
 const saveNote = (note) => 
-  fetch('/api/notes.html', {
+  fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const saveNote = (note) =>
 
 const deleteNote = (id) => {
   // console.log(id);
-  fetch(`/api/notes.html/${id}`, {
+  fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -86,10 +86,8 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target.parentElement;
-  console.log(note);
   note.remove();
   const noteId = Object.values(JSON.parse((note.getAttribute('data-note'))))[2];
-  console.log(noteId);
 
   // if (activeNote.id === noteId) {
   //   activeNote = {};
@@ -126,7 +124,7 @@ const handleRenderSaveBtn = () => {
 const renderNoteList = async (notes) => {
   console.log(notes);
   let jsonNotes = await notes.json();
-  if (window.location.pathname === '/notes.html') {
+  if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
 
@@ -172,7 +170,7 @@ const renderNoteList = async (notes) => {
     noteListItems.push(li);
   });
 
-  if (window.location.pathname === '/notes.html') {
+  if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
 };
@@ -180,7 +178,7 @@ const renderNoteList = async (notes) => {
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then((response) => renderNoteList(response));
 
-if (window.location.pathname === '/notes.html') {
+if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
