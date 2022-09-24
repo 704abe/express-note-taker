@@ -30,5 +30,9 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ## Screenshots
 
 ![No Saved Notes](/Assets/Screen%20Shot%202022-09-24%20at%204.29.52%20PM.png)
-![No Saved Notes](/Assets/Screen%20Shot%202022-09-24%20at%204.29.52%20PM.png)
-![No Saved Notes](/Assets/Screen%20Shot%202022-09-24%20at%204.29.52%20PM.png)
+![No Saved Notes](/Assets/Screen%20Shot%202022-09-24%20at%205.39.24%20PM.png)
+![No Saved Notes](/Assets/Screen%20Shot%202022-09-24%20at%205.39.48%20PM.png)
+
+Github Repository: https://github.com/704abe/express-note-taker
+
+Deployed Link: 
