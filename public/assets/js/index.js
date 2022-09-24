@@ -1,3 +1,5 @@
+// import { response } from "express"
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -122,7 +124,8 @@ const handleRenderSaveBtn = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  console.log(notes);
+  console.log('hello');
+  // console.log(notes);
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
@@ -176,7 +179,7 @@ const renderNoteList = async (notes) => {
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then((response) => renderNoteList(response));
+const getAndRenderNotes = () => getNotes().then(response => getAndRenderNotes(response));
 
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
